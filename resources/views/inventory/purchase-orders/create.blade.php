@@ -125,7 +125,7 @@
                 <div class="block block-rounded">
                     <div class="block-content block-content-full text-right">
                         <a href="{{ route('purchase-orders.index') }}" class="btn btn-alt-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Create Order</button>
+                        <button type="submit" class="btn btn-primary" onclick="return validateForm();">Create Order</button>
                     </div>
                 </div>
             </div>
@@ -174,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         removeBtn.addEventListener('click', function() {
             firstRow.remove();
             calculateTotals();
+            updateRemoveButtons();
         });
 
         tableBody.appendChild(firstRow);
@@ -181,7 +182,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Re-attach event listeners
         attachListeners(firstRow);
+        updateRemoveButtons();
     });
+
+    // Update remove button states
+    function updateRemoveButtons() {
+        const rows = tableBody.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            const removeBtn = row.querySelector('.remove-item');
+            removeBtn.disabled = rows.length === 1;
+        });
+    }
 
     // Attach listeners to inputs
     function attachListeners(row) {
@@ -192,6 +203,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial listeners
     attachListeners(tableBody.querySelector('tr'));
+
+    // Form validation
+    window.validateForm = function() {
+        const supplierSelect = document.getElementById('supplier_id');
+        if (!supplierSelect.value) {
+            alert('Please select a supplier');
+            supplierSelect.focus();
+            return false;
+        }
+
+        const rows = tableBody.querySelectorAll('tr');
+        let hasValidItem = false;
+        
+        for (let row of rows) {
+            const itemSelect = row.querySelector('.item-select');
+            if (itemSelect.value) {
+                hasValidItem = true;
+                break;
+            }
+        }
+
+        if (!hasValidItem) {
+            alert('Please add at least one item to the purchase order');
+            return false;
+        }
+
+        return true;
+    };
 });
 </script>
 @endsection

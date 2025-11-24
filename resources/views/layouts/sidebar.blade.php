@@ -368,29 +368,29 @@
                 <li class="nav-main-heading">Administration</li>
 
                 <!-- System Setup -->
-                <li class="nav-main-item">
+                <li class="nav-main-item {{ Request::is('hospital*') || Request::is('departments*') || Request::is('users*') || Request::is('roles*') ? 'open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-settings"></i>
                         <span class="nav-main-link-name">System Setup</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('hospital*') ? 'active' : '' }}" href="{{ route('hospital.edit') }}">
                                 <span class="nav-main-link-name">Hospital Profile</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('departments*') ? 'active' : '' }}" href="{{ route('departments.index') }}">
                                 <span class="nav-main-link-name">Departments</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                                 <span class="nav-main-link-name">Manage Users</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
                                 <span class="nav-main-link-name">Roles & Permissions</span>
                             </a>
                         </li>

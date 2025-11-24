@@ -67,7 +67,7 @@
                                         <span class="badge badge-secondary">Cancelled</span>
                                     @endif
                                 </td>
-                                <td>${{ number_format($po->total_amount, 2) }}</td>
+                                <td>₦{{ number_format($po->total_amount, 2) }}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <a href="{{ route('purchase-orders.show', $po) }}" class="btn btn-sm btn-alt-secondary" data-toggle="tooltip" title="View">

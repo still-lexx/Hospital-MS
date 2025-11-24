@@ -78,7 +78,7 @@
                             </tr>
                             <tr>
                                 <td class="font-w600">Total Amount</td>
-                                <td class="font-w700">${{ number_format($purchaseOrder->total_amount, 2) }}</td>
+                                <td class="font-w700">₦{{ number_format($purchaseOrder->total_amount, 2) }}</td>
                             </tr>
                             <tr>
                                 <td class="font-w600">Notes</td>
@@ -118,15 +118,15 @@
                                         </td>
                                         <td>{{ $item->inventoryItem->sku ?? '-' }}</td>
                                         <td class="text-center">{{ $item->quantity }}</td>
-                                        <td class="text-right">${{ number_format($item->unit_price, 2) }}</td>
-                                        <td class="text-right">${{ number_format($item->total, 2) }}</td>
+                                        <td class="text-right">₦{{ number_format($item->unit_price, 2) }}</td>
+                                        <td class="text-right">₦{{ number_format($item->total, 2) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="4" class="text-right font-w700">Grand Total:</td>
-                                    <td class="text-right font-w700">${{ number_format($purchaseOrder->total_amount, 2) }}</td>
+                                    <td class="text-right font-w700">₦{{ number_format($purchaseOrder->total_amount, 2) }}</td>
                                 </tr>
                             </tfoot>
                         </table>

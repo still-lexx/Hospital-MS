@@ -16,18 +16,48 @@ class RolePermissionSeeder extends Seeder
 
         // Permissions list
         $permissions = [
+            // Patients
             'view patients',
             'add patients',
             'edit patients',
             'delete patients',
 
+            // Appointments
             'view appointments',
             'create appointments',
             'edit appointments',
             'cancel appointments',
 
-            'manage users',
-            'manage roles',
+            // Doctors
+            'view doctors',
+            'add doctors',
+            'edit doctors',
+            'delete doctors',
+
+            // Departments
+            'view departments',
+            'add departments',
+            'edit departments',
+            'delete departments',
+
+            // Users
+            'view users',
+            'add users',
+            'edit users',
+            'delete users',
+
+            // Roles
+            'view roles',
+            'add roles',
+            'edit roles',
+            'delete roles',
+
+            // Hospital
+            'edit hospital',
+            
+            // Legacy/Broad (optional, keeping for backward compatibility if needed, or removing if unused)
+            // 'manage users', 
+            // 'manage roles',
         ];
 
         // Create permissions

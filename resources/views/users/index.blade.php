@@ -1,0 +1,86 @@
+@extends('layouts.app')
+
+
+@section('content')
+<!-- Hero -->
+<div class="bg-body-light">
+    <div class="content content-full">
+        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+            <h1 class="flex-sm-fill h3 my-2">
+                Users Management <small class="d-block d-sm-inline-block mt-2 mt-sm-0 font-size-base font-w400 text-muted">Manage system users</small>
+            </h1>
+            <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-alt">
+                    <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- END Hero -->
+
+<div class="content">
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">All Users</h3>
+            <div class="block-options">
+                <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
+                    <i class="fa fa-plus mr-1"></i> Create New User
+                </a>
+            </div>
+        </div>
+
+        <div class="block-content">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-vcenter">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 50px;">No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                            <th class="text-center" style="width: 100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $key => $user)
+                        <tr>
+                            <td class="text-center">{{ ++$i }}</td>
+                            <td class="font-w600">{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                @if(!empty($user->getRoleNames()))
+                                    @foreach($user->getRoleNames() as $v)
+                                        <span class="badge badge-success">{{ $v }}</span>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-info" href="{{ route('users.show',$user->id) }}" data-toggle="tooltip" title="Show">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('users.edit',$user->id) }}" data-toggle="tooltip" title="Edit">
+                                        <i class="fa fa-fw fa-pencil-alt"></i>
+                                    </a>
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete">
+                                            <i class="fa fa-fw fa-times"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-3">
+                {!! $data->render() !!}
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

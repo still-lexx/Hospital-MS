@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -67,4 +68,14 @@ class User extends Authenticatable
     //     }
     //     return false;
     // }
+
+    /**
+     * Check if user is an administrator
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
 }

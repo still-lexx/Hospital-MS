@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     use HasFactory;
+    use HasFactory;
 
     // Constants for appointment status
     const STATUS_SCHEDULED = 'scheduled';

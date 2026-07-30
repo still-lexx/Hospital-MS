@@ -34,7 +34,7 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $input = $request->all();
+        $input = $request->only(['name', 'email', 'password']);
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
@@ -46,13 +46,13 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('users.show', compact('user'));
     }
 
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
 
@@ -87,7 +87,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::findOrFail($id)->delete();
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }

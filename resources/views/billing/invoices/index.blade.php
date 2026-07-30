@@ -85,7 +85,7 @@
                                     <span class="badge badge-dark">Cancelled</span>
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-right">
                                 <a href="{{ route('invoices.show', $invoice) }}" class="btn btn-sm btn-info" title="View">
                                     <i class="fa fa-eye"></i>
                                 </a>

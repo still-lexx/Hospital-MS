@@ -12,20 +12,38 @@ class Prescription extends Model
     protected $fillable = [
         'patient_id',
         'doctor_id',
-        'medications',
-        'instructions',
-        'prescribed_at',
+        'appointment_id',
+        'prescription_date',
+        'notes',
+        'status',
     ];
 
-    // prescription belongs to a patient
+    protected $casts = [
+        'prescription_date' => 'date',
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);
     }
 
-    // prescription belongs to a doctor
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(User::class, 'doctor_id');
+    }
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(PrescriptionItem::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(PharmacySale::class);
     }
 }

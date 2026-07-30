@@ -77,23 +77,6 @@
         </div>
     </div>
 
-    <!-- Placeholder Notice -->
-    <div class="block block-rounded">
-        <div class="block-content">
-            <div class="alert alert-info d-flex align-items-center" role="alert">
-                <div class="flex-shrink-0">
-                    <i class="fa fa-fw fa-info-circle"></i>
-                </div>
-                <div class="flex-grow-1 ml-3">
-                    <p class="mb-0">
-                        <strong>Inventory Module Not Yet Implemented</strong><br>
-                        This report will display stock levels, usage patterns, and expiring items once the inventory management module is implemented.
-                        The system will track medicines, medical supplies, equipment, and other hospital inventory.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Placeholder Charts -->
     <div class="row">
@@ -103,9 +86,22 @@
                     <h3 class="block-title">Stock by Category</h3>
                 </div>
                 <div class="block-content">
-                    <div class="text-center py-5">
-                        <i class="fa fa-chart-pie fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">No data available</p>
+                    <div class="table-responsive">
+                        <table class="table table-vcenter">
+                            <tbody>
+                                @foreach($stockByCategory as $category)
+                                <tr>
+                                    <td>{{ $category->name }}</td>
+                                    <td class="text-right">
+                                        <span class="badge badge-primary">{{ $category->inventory_items_count }} Items</span>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-3">
+                        {{ $stockByCategory->appends(request()->except('category_page'))->links() }}
                     </div>
                 </div>
             </div>
@@ -116,10 +112,18 @@
                     <h3 class="block-title">Stock Movement Trend</h3>
                 </div>
                 <div class="block-content">
-                    <div class="text-center py-5">
-                        <i class="fa fa-chart-line fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">No data available</p>
-                    </div>
+                    <ul class="list list-activity">
+                        @forelse($recentActivity as $activity)
+                        <li>
+                            <i class="fa fa-{{ $activity->type == 'in' ? 'arrow-down text-success' : 'arrow-up text-danger' }} list-activity-icon"></i>
+                            <div class="font-w600">{{ $activity->inventoryItem->name }}</div>
+                            <div class="font-size-sm">{{ ucfirst($activity->type) }}: {{ $activity->quantity }} units</div>
+                            <div class="font-size-xs text-muted">{{ $activity->created_at->diffForHumans() }} by {{ $activity->user->name }}</div>
+                        </li>
+                        @empty
+                        <li class="text-center text-muted">No recent activity</li>
+                        @endforelse
+                    </ul>
                 </div>
             </div>
         </div>
@@ -143,9 +147,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($lowStockList as $stock)
                                 <tr>
-                                    <td colspan="3" class="text-center">No items to display</td>
+                                    <td class="font-w600">{{ $stock->inventoryItem->name }}</td>
+                                    <td>
+                                        <span class="text-danger font-w700">{{ $stock->quantity }}</span>
+                                    </td>
+                                    <td>{{ $stock->inventoryItem->reorder_level }}</td>
                                 </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">No items currently low on stock</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -168,9 +182,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($expiringItems as $stock)
                                 <tr>
-                                    <td colspan="3" class="text-center">No items to display</td>
+                                    <td class="font-w600">{{ $stock->inventoryItem->name }}</td>
+                                    <td>{{ $stock->batch_number }}</td>
+                                    <td>
+                                        <span class="badge badge-{{ $stock->expiry_date && $stock->expiry_date->isPast() ? 'danger' : 'warning' }}">
+                                            {{ $stock->expiry_date ? $stock->expiry_date->format('M d, Y') : 'N/A' }}
+                                        </span>
+                                    </td>
                                 </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">No items expiring soon</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

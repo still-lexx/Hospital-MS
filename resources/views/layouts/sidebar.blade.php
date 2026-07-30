@@ -161,7 +161,7 @@
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('doctors/schedules*') ? 'active' : '' }}" href="{{ route('doctors.schedules.index') }}">
                                 <span class="nav-main-link-name">Schedules</span>
                             </a>
                         </li>
@@ -169,24 +169,24 @@
                 </li>
 
                 <!-- OPD Management -->
-                <li class="nav-main-item">
+                <li class="nav-main-item {{ Request::is('opd*') ? 'open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-badge"></i>
                         <span class="nav-main-link-name">OPD</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('operations/opd/visits*') ? 'active' : '' }}" href="{{ route('opd-visits.index') }}">
                                 <span class="nav-main-link-name">OPD Queue</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('operations/opd/consultations*') ? 'active' : '' }}" href="{{ route('opd-consultations.index') }}">
                                 <span class="nav-main-link-name">Consultations</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('operations/opd/medical-records*') ? 'active' : '' }}" href="{{ route('opd-records.index') }}">
                                 <span class="nav-main-link-name">Medical Records</span>
                             </a>
                         </li>
@@ -194,25 +194,25 @@
                 </li>
 
                 <!-- IPD/Admissions -->
-                <li class="nav-main-item">
+                <li class="nav-main-item {{ Request::is('ipd*') || Request::is('admissions*') ? 'open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-home"></i>
                         <span class="nav-main-link-name">IPD/Admissions</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('ipd/admissions*') ? 'active' : '' }}" href="{{ route('ipd-admissions.index') }}">
                                 <span class="nav-main-link-name">Admitted Patients</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('ipd/wards*') ? 'active' : '' }}" href="{{ route('wards.index') }}">
                                 <span class="nav-main-link-name">Ward Management</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <span class="nav-main-link-name">Bed Allocation</span>
+                            <a class="nav-main-link" href="#">
+                                <span class="nav-main-link-name">Bed Allocation (Via Wards)</span>
                             </a>
                         </li>
                     </ul>
@@ -222,49 +222,49 @@
                 <li class="nav-main-heading">Services</li>
 
                 <!-- Lab Management -->
-                <li class="nav-main-item">
+                <li class="nav-main-item {{ Request::is('laboratory*') ? 'open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-chemistry"></i>
                         <span class="nav-main-link-name">Laboratory</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('laboratory/tests*') ? 'active' : '' }}" href="{{ route('lab-tests.index') }}">
+                                <span class="nav-main-link-name">Lab Tests</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link {{ Request::is('laboratory/requests*') ? 'active' : '' }}" href="{{ route('lab-test-requests.index') }}">
                                 <span class="nav-main-link-name">Test Requests</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('laboratory/results*') ? 'active' : '' }}" href="{{ route('lab-results.index') }}">
                                 <span class="nav-main-link-name">Test Results</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <span class="nav-main-link-name">Lab Reports</span>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <!-- Pharmacy -->
-                <li class="nav-main-item">
+                <li class="nav-main-item {{ Request::is('pharmacy*') ? 'open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-plus"></i>
                         <span class="nav-main-link-name">Pharmacy</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('pharmacy/prescriptions*') ? 'active' : '' }}" href="{{ route('prescriptions.index') }}">
                                 <span class="nav-main-link-name">Prescriptions</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('pharmacy/stock*') ? 'active' : '' }}" href="{{ route('items.index') }}">
                                 <span class="nav-main-link-name">Medicine Stock</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('pharmacy/sales*') ? 'active' : '' }}" href="{{ route('pharmacy-sales.index') }}">
                                 <span class="nav-main-link-name">Sales</span>
                             </a>
                         </li>
@@ -272,24 +272,24 @@
                 </li>
 
                 <!-- Operation Theatre -->
-                <li class="nav-main-item">
+                <li class="nav-main-item {{ Request::is('operations*') ? 'open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-heart"></i>
                         <span class="nav-main-link-name">Operation Theatre</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('operations/surgeries*') ? 'active' : '' }}" href="{{ route('surgeries.index') }}">
                                 <span class="nav-main-link-name">Surgery Schedule</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <span class="nav-main-link-name">OT Management</span>
+                            <a class="nav-main-link {{ Request::is('operations/ot-rooms*') ? 'active' : '' }}" href="{{ route('ot-rooms.index') }}">
+                                <span class="nav-main-link-name">OT Rooms</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
+                            <a class="nav-main-link {{ Request::is('operations/reports*') ? 'active' : '' }}" href="{{ route('surgery-reports.index') }}">
                                 <span class="nav-main-link-name">Surgery Reports</span>
                             </a>
                         </li>

@@ -17,7 +17,15 @@ class SpecializationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->unique()->randomElement([
+                'Cardiologist', 'Neurologist', 'Orthopedic Surgeon', 'Pediatrician', 
+                'Oncologist', 'Gynecologist', 'Dermatologist', 'Psychiatrist',
+                'Radiologist', 'Urologist', 'Ophthalmologist', 'Gastroenterologist',
+                'Endocrinologist', 'Dentist', 'ENT Specialist', 'General Surgeon',
+                'Anesthesiologist', 'Pathologist', 'Nephrologist', 'Pulmonologist'
+            ]),
+            'description' => fake()->sentence(),
+            'is_active' => 1,
         ];
     }
 }

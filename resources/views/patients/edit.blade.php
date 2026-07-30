@@ -189,7 +189,7 @@
                             <label for="ward_id">Ward</label>
                             <select class="form-control @error('ward_id') is-invalid @enderror" id="ward_id" name="ward_id">
                                 <option value="">Select Ward</option>
-                                @foreach(\App\Models\Ward::all() as $ward)
+                                @foreach($wards as $ward)
                                     <option value="{{ $ward->id }}" {{ old('ward_id', $patient->ward_id) == $ward->id ? 'selected' : '' }}>
                                         {{ $ward->name }}
                                     </option>

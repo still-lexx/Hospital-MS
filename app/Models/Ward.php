@@ -9,16 +9,10 @@ class Ward extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'description',
-        'capacity',
-        'status',
-    ];
+    protected $fillable = ['name', 'type', 'description', 'capacity'];
 
-    // ward can have many admissions
-    public function admissions()
+    public function beds()
     {
-        return $this->hasMany(Admission::class);
+        return $this->hasMany(Bed::class);
     }
 }

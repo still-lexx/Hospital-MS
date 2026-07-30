@@ -13,11 +13,7 @@
                                         @if (Route::has('password.request'))
                                             <a class="btn-block-option font-size-sm" href="{{ route('password.request') }}">Forgot Password?</a>
                                         @endif
-                                        @if (Route::has('register'))
-                                            <a class="btn-block-option" href="{{ route('register') }}" data-toggle="tooltip" data-placement="left" title="New Account">
-                                                <i class="fa fa-user-plus"></i>
-                                            </a>
-                                        @endif 
+                                        
                                         </div>
                                     </div>
                                     <div class="block-content">

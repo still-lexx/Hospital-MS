@@ -82,7 +82,7 @@
                                     <span class="badge badge-warning">Pending</span>
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td class="">
                                 <a href="{{ route('insurance-claims.show', $claim) }}" class="btn btn-sm btn-info" title="View">
                                     <i class="fa fa-eye"></i>
                                 </a>

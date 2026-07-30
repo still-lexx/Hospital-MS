@@ -112,30 +112,26 @@
                                                 <input type="text" class="form-control form-control-alt" name="conditions" id="conditions" placeholder="Diabetes, Hypertension, etc." value="{{ old('conditions') }}">
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="ward">Ward</label>
-                                                <select class="form-control form-control-alt" id="ward" name="ward_id" style="width: 100%;">
-                                                    <option value="" selected disabled>Select...</option>
-                                                    <option value="1" {{ old('ward_id') == '1' ? 'selected' : '' }}>General Ward</option>
-                                                    <option value="2" {{ old('ward_id') == '2' ? 'selected' : '' }}>ICU</option>
-                                                    <option value="3" {{ old('ward_id') == '3' ? 'selected' : '' }}>Emergency</option>
-                                                    <option value="4" {{ old('ward_id') == '4' ? 'selected' : '' }}>Pediatric</option>
-                                                    <option value="5" {{ old('ward_id') == '5' ? 'selected' : '' }}>Maternity</option>
+                                                <label for="ward_id">Ward</label>
+                                                <select class="form-control form-control-alt" id="ward_id" name="ward_id" style="width: 100%;" required>
+                                                    <option value="" selected disabled>Select Ward...</option>
+                                                    @foreach($wards as $ward)
+                                                        <option value="{{ $ward->id }}" {{ old('ward_id') == $ward->id ? 'selected' : '' }}>{{ $ward->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Admitted?</label>
-                                            <div class="custom-control custom-switch mb-1">
-                                                <input type="checkbox" class="custom-control-input" id="admitted" name="admitted" {{ old('admitted') ? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="admitted"></label>
+                                            <div class="col-md-6 d-flex align-items-center">
+                                                <div class="custom-control custom-checkbox mt-4">
+                                                    <input type="checkbox" class="custom-control-input" id="admitted" name="admitted" {{ old('admitted') ? 'checked' : '' }}>
+                                                    <label class="custom-control-label" for="admitted">Admit Patient Immediately</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Upload Image</label>
-                                                <input type="file" class="form-control  form-control-alt" id="photo" name="photo" accept="image/*">
+                                            <input type="file" class="form-control form-control-alt" id="photo" name="photo" accept="image/*">
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success">Save</button>

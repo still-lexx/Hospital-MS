@@ -6,6 +6,10 @@ use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Department;
+use App\Models\InventoryItem;
+use App\Models\Stock;
+use App\Models\Category;
+use App\Models\StockMovement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -112,9 +116,12 @@ class ReportController extends Controller
             ];
         }
 
-        // Estimated revenue (assuming fixed consultation fee)
-        $consultationFee = 1000; // Example fee
-        $estimatedRevenue = $completedAppointments * $consultationFee;
+        // Actual revenue: sum of consultation fees for completed appointments in range
+        $estimatedRevenue = Appointment::join('doctors', 'appointments.doctor_id', '=', 'doctors.id')
+            ->whereBetween('appointments.appointment_date', [$startDate, $endDate])
+            ->where('appointments.status', 'completed')
+            ->whereNotNull('doctors.consultation_fee')
+            ->sum('doctors.consultation_fee');
 
         return view('reports.financial', compact(
             'totalAppointments',
@@ -133,15 +140,34 @@ class ReportController extends Controller
      */
     public function inventoryReports(Request $request)
     {
-        // Placeholder data - to be replaced with actual inventory models
-        $totalItems = 0;
-        $lowStockItems = 0;
-        $outOfStockItems = 0;
-        $inventoryValue = 0;
+        $totalItems = InventoryItem::count();
+        $outOfStockItems = Stock::where('quantity', 0)->count();
+        $lowStockItems = Stock::join('inventory_items', 'stocks.inventory_item_id', '=', 'inventory_items.id')
+            ->whereColumn('stocks.quantity', '<', 'inventory_items.reorder_level')
+            ->where('stocks.quantity', '>', 0)
+            ->count();
+        $inventoryValue = Stock::selectRaw('SUM(quantity * unit_price) as val')->value('val') ?? 0;
         
-        $stockByCategory = [];
-        $recentActivity = [];
-        $expiringItems = [];
+        $stockByCategory = Category::withCount('inventoryItems')->paginate(5, ['*'], 'category_page');
+        
+        $recentActivity = StockMovement::with(['inventoryItem', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+            
+        $expiringItems = Stock::with('inventoryItem')
+            ->whereNotNull('expiry_date')
+            ->whereDate('expiry_date', '<', Carbon::now()->addMonths(6))
+            ->orderBy('expiry_date')
+            ->limit(10)
+            ->get();
+
+        $lowStockList = Stock::with('inventoryItem')
+            ->join('inventory_items', 'stocks.inventory_item_id', '=', 'inventory_items.id')
+            ->whereColumn('stocks.quantity', '<', 'inventory_items.reorder_level')
+            ->select('stocks.*')
+            ->limit(10)
+            ->get();
 
         return view('reports.inventory', compact(
             'totalItems',
@@ -150,7 +176,8 @@ class ReportController extends Controller
             'inventoryValue',
             'stockByCategory',
             'recentActivity',
-            'expiringItems'
+            'expiringItems',
+            'lowStockList'
         ));
     }
 

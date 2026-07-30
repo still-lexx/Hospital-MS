@@ -10,25 +10,21 @@ class LabTest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patient_id',
-        'doctor_id',
-        'test_name',
+        'name',
         'description',
-        'test_date',
+        'price',
+        'category',
+        'normal_range',
+        'unit',
         'status',
-        'results',
-        'notes',
     ];
 
-    // lab test belongs to a patient
-    public function patient()
-    {
-        return $this->belongsTo(Patient::class);
-    }
+    protected $casts = [
+        'price' => 'decimal:2',
+    ];
 
-    // lab test is ordered by a doctor
-    public function doctor()
+    public function testRequests()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->hasMany(LabTestRequest::class);
     }
 }

@@ -39,9 +39,6 @@
                                 <a href="{{ url('/dashboard') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
                             @else
                                 <a href="{{ route('login') }}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium">Register</a>
-                                @endif
                             @endauth
                         @endif
                     </div>
@@ -130,7 +127,7 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Billing & Payments</h3>
-                        <p class="text-gray-600">Streamlined billing process with multiple payment methods and invoicing.</p>
+                        <p class="text-gray-600">Streamlined billing process with multiple payment methods. Total pharmacy revenue processed: <span class="font-bold text-indigo-600">₦{{ number_format($totalSales, 2) }}</span></p>
                     </div>
 
                     <!-- Feature 6 -->
@@ -146,6 +143,91 @@
                 </div>
             </div>
         </div>
+
+        <!-- Statistics Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">Hospital Performance</h2>
+                        <p class="text-gray-600 mt-2">Annual revenue growth and pharmacy sales analytics.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                             Live Data Stream
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="relative h-96">
+                    <canvas id="welcome-revenue-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('welcome-revenue-chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'Monthly Revenue (₦)',
+                            data: {!! $chartEarnings !!},
+                            borderColor: 'rgb(79, 70, 229)',
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    display: true,
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₦' + value.toLocaleString();
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgb(17, 24, 39)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 14 },
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Revenue: ₦' + context.parsed.y.toLocaleString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
 
         <!-- Footer -->
         <footer class="bg-white mt-20">

@@ -6,10 +6,20 @@ use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $totalSales = \App\Models\PharmacySale::sum('total_amount');
+    
+    $monthlyRevenue = [];
+    for ($m = 1; $m <= 12; $m++) {
+        $monthlyRevenue[] = \App\Models\PharmacySale::whereYear('sale_date', now()->year)
+            ->whereMonth('sale_date', $m)
+            ->sum('total_amount');
+    }
+    $chartEarnings = json_encode($monthlyRevenue);
+    
+    return view('welcome', compact('totalSales', 'chartEarnings'));
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
@@ -33,7 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('appointments', \App\Http\Controllers\AppointmentController::class);
 
     // Doctor routes
-    // Doctor routes
+    Route::resource('doctors/schedules', \App\Http\Controllers\DoctorScheduleController::class)
+        ->names('doctors.schedules')
+        ->parameters(['schedules' => 'schedule']);
     Route::resource('doctors', \App\Http\Controllers\DoctorController::class);
 
     // Hospital Profile
@@ -74,4 +86,33 @@ Route::middleware(['auth'])->group(function () {
     Route::get('billing/payments', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
     Route::delete('billing/payments/{payment}', [App\Http\Controllers\PaymentController::class, 'destroy'])->name('payments.destroy');
     Route::resource('billing/insurance-claims', App\Http\Controllers\InsuranceClaimController::class);
+
+    // Laboratory Module
+    Route::resource('laboratory/tests', App\Http\Controllers\LabTestController::class)->names('lab-tests');
+    Route::resource('laboratory/requests', App\Http\Controllers\LabTestRequestController::class)->names('lab-test-requests');
+    Route::resource('laboratory/results', App\Http\Controllers\LabResultController::class)->names('lab-results');
+
+    // Pharmacy Module
+    Route::resource('pharmacy/prescriptions', App\Http\Controllers\PrescriptionController::class)->names('prescriptions');
+    Route::resource('pharmacy/sales', App\Http\Controllers\PharmacySaleController::class)->names('pharmacy-sales');
+
+    // Operations Theatre Module
+    Route::resource('operations/surgeries', App\Http\Controllers\SurgeryController::class)->names('surgeries');
+    Route::resource('operations/ot-rooms', App\Http\Controllers\OTRoomController::class)->names('ot-rooms');
+    Route::resource('operations/reports', App\Http\Controllers\SurgeryReportController::class)->names('surgery-reports');
+
+    // OPD Module
+    Route::resource('operations/opd/visits', App\Http\Controllers\OpdVisitController::class)->names('opd-visits');
+    Route::get('operations/opd/consultations/{visit}/create', [App\Http\Controllers\OpdConsultationController::class, 'create'])->name('opd-consultations.create');
+    Route::post('operations/opd/consultations/{visit}', [App\Http\Controllers\OpdConsultationController::class, 'store'])->name('opd-consultations.store');
+    Route::resource('operations/opd/consultations', App\Http\Controllers\OpdConsultationController::class)->except(['create', 'store'])->names('opd-consultations');
+    
+    Route::get('operations/opd/medical-records', [App\Http\Controllers\OpdMedicalRecordController::class, 'index'])->name('opd-records.index');
+    Route::get('operations/opd/medical-records/{visit}', [App\Http\Controllers\OpdMedicalRecordController::class, 'show'])->name('opd-records.show');
+
+    // IPD Module
+    Route::resource('ipd/wards', App\Http\Controllers\WardController::class);
+    Route::post('ipd/wards/{ward}/beds', [App\Http\Controllers\WardController::class, 'addBed'])->name('wards.add-bed');
+    Route::resource('ipd/admissions', App\Http\Controllers\IpdAdmissionController::class)->names('ipd-admissions');
+    Route::post('ipd/admissions/{ipdAdmission}/discharge', [App\Http\Controllers\IpdAdmissionController::class, 'discharge'])->name('ipd-admissions.discharge');
 });

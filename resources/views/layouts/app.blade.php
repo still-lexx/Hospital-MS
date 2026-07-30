@@ -31,8 +31,152 @@
     
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Global Skeleton Loader -->
+    <style>
+        /* ── Overlay ───────────────────────────────────────── */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(247, 249, 252, 0.96);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+        #page-loader.sk-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* ── Top progress bar ──────────────────────────────── */
+        #page-loader .sk-progress {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                #4cc38a 40%,
+                #3490dc 70%,
+                transparent 100%);
+            background-size: 200% 100%;
+            animation: sk-slide 1.4s linear infinite;
+        }
+
+        /* ── Centre card ───────────────────────────────────── */
+        #page-loader .sk-card {
+            width: 100%;
+            max-width: 560px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 28px 32px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+        }
+
+        /* ── Skeleton lines ────────────────────────────────── */
+        .sk-line {
+            height: 13px;
+            border-radius: 6px;
+            background: linear-gradient(90deg,
+                #e8ecf0 25%,
+                #d2d9e0 50%,
+                #e8ecf0 75%);
+            background-size: 400% 100%;
+            animation: sk-shimmer 1.4s ease-in-out infinite;
+        }
+        .sk-line.sk-title  { height: 18px; width: 55%; margin-bottom: 20px; }
+        .sk-line.sk-w-100  { width: 100%; margin-bottom: 12px; }
+        .sk-line.sk-w-80   { width: 80%;  margin-bottom: 12px; }
+        .sk-line.sk-w-60   { width: 60%;  margin-bottom: 12px; }
+        .sk-line.sk-w-40   { width: 40%;  margin-bottom: 0; }
+
+        /* ── 4-column stat cards row ───────────────────────── */
+        .sk-stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .sk-stat-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        .sk-stat-card .sk-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #e8ecf0 25%, #d2d9e0 50%, #e8ecf0 75%);
+            background-size: 400% 100%;
+            animation: sk-shimmer 1.4s ease-in-out infinite;
+            margin-bottom: 12px;
+        }
+
+        /* ── Animations ────────────────────────────────────── */
+        @keyframes sk-shimmer {
+            0%   { background-position: 100% 50%; }
+            100% { background-position:   0% 50%; }
+        }
+        @keyframes sk-slide {
+            0%   { background-position: 200% 0; }
+            100% { background-position:  -200% 0; }
+        }
+
+        @media (max-width: 640px) {
+            .sk-stats-row { grid-template-columns: repeat(2, 1fr); }
+            #page-loader .sk-card { margin: 0 16px; padding: 20px; }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- ═══════════ Global Page Loader ═══════════ -->
+    <div id="page-loader">
+        <div class="sk-progress"></div>
+
+        <!-- Mini stat-card row -->
+        <div class="sk-stats-row" style="width:100%;max-width:560px;margin-bottom:16px;">
+            <div class="sk-stat-card">
+                <div class="sk-icon"></div>
+                <div class="sk-line sk-w-60"></div>
+                <div class="sk-line sk-w-40" style="margin-top:8px;"></div>
+            </div>
+            <div class="sk-stat-card">
+                <div class="sk-icon"></div>
+                <div class="sk-line sk-w-60"></div>
+                <div class="sk-line sk-w-40" style="margin-top:8px;"></div>
+            </div>
+            <div class="sk-stat-card">
+                <div class="sk-icon"></div>
+                <div class="sk-line sk-w-60"></div>
+                <div class="sk-line sk-w-40" style="margin-top:8px;"></div>
+            </div>
+            <div class="sk-stat-card">
+                <div class="sk-icon"></div>
+                <div class="sk-line sk-w-60"></div>
+                <div class="sk-line sk-w-40" style="margin-top:8px;"></div>
+            </div>
+        </div>
+
+        <!-- Content placeholder card -->
+        <div class="sk-card">
+            <div class="sk-line sk-title"></div>
+            <div class="sk-line sk-w-100"></div>
+            <div class="sk-line sk-w-80"></div>
+            <div class="sk-line sk-w-100"></div>
+            <div class="sk-line sk-w-60"></div>
+            <div class="sk-line sk-w-80" style="margin-top:20px;"></div>
+            <div class="sk-line sk-w-40"></div>
+        </div>
+    </div>
+    <!-- ═══════════ END Global Page Loader ═══════════ -->
     
     @guest
         @include('layouts.header')
@@ -80,7 +224,6 @@
         <!-- SweetAlert2 -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
-        <!-- SweetAlert Global Implementation -->
         <script>
             // Display Laravel session messages as SweetAlert
             @if(session('success'))
@@ -139,5 +282,74 @@
                 });
             }
         </script>
+        @stack('scripts')
+
+        <!-- ═══════════ Skeleton Loader Controller ═══════════ -->
+        <script>
+        (function () {
+            var loader = document.getElementById('page-loader');
+            if (!loader) return;
+
+            /* ── Hide loader once THIS page is ready ─────────────── */
+            function hideLoader() {
+                loader.classList.add('sk-hidden');
+                // fully remove from DOM after transition so it can't interfere
+                setTimeout(function () {
+                    if (loader.parentNode) loader.parentNode.removeChild(loader);
+                }, 400);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', hideLoader);
+            } else {
+                hideLoader();           // already loaded (e.g. back-forward cache)
+            }
+
+            /* ── Show loader on outgoing navigations ─────────────── */
+            function shouldShowLoader(el) {
+                var href = el.getAttribute('href') || '';
+                // Skip: no href, anchor-only, javascript:void, external, Bootstrap toggles
+                if (!href || href === '#' || href.indexOf('javascript') === 0) return false;
+                if (el.getAttribute('data-toggle')  ||
+                    el.getAttribute('data-action')   ||
+                    el.getAttribute('data-bs-toggle')) return false;
+                // Skip external links
+                if (href.indexOf('http') === 0 && href.indexOf(window.location.origin) !== 0) return false;
+                return true;
+            }
+
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest('a');
+                if (link && shouldShowLoader(link) && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                    showLoader();
+                }
+            });
+
+            // Also show on form submissions (POST navigations)
+            document.addEventListener('submit', function (e) {
+                if (e.target && e.target.tagName === 'FORM' && e.target.method !== 'dialog') {
+                    showLoader();
+                }
+            });
+
+            function showLoader() {
+                // Re-create loader if it was already removed (edge case)
+                if (!document.getElementById('page-loader')) {
+                    loader = createLoader();
+                    document.body.appendChild(loader);
+                }
+                loader.classList.remove('sk-hidden');
+            }
+
+            function createLoader() {
+                var d = document.createElement('div');
+                d.id = 'page-loader';
+                d.innerHTML = document.querySelector('#page-loader') ?
+                    document.querySelector('#page-loader').innerHTML : '<div class="sk-progress"></div>';
+                return d;
+            }
+        })();
+        </script>
+        <!-- ═══════════ END Skeleton Loader Controller ═══════════ -->
 </body>
 </html>

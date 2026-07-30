@@ -42,88 +42,88 @@
                     <!-- Overview -->
                     <div class="row row-deck">
                         <div class="col-sm-6 col-xl-3">
-                            <!-- Pending Orders -->
+                            <!-- Total Patients -->
                             <div class="block block-rounded d-flex flex-column">
                                 <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
                                     <dl class="mb-0">
-                                        <dt class="font-size-h2 font-w700">32</dt>
-                                        <dd class="text-muted mb-0">Pending Orders</dd>
-                                    </dl>
-                                    <div class="item item-rounded bg-body">
-                                        <i class="fa fa-shopping-cart font-size-h3 text-primary"></i>
-                                    </div>
-                                </div>
-                                <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                                    <a class="font-w500 d-flex align-items-center" href="javascript:void(0)">
-                                        View all orders
-                                        <i class="fa fa-arrow-alt-circle-right ml-1 opacity-25 font-size-base"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- END Pending Orders -->
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
-                            <!-- New Customers -->
-                            <div class="block block-rounded d-flex flex-column">
-                                <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
-                                    <dl class="mb-0">
-                                        <dt class="font-size-h2 font-w700">124</dt>
-                                        <dd class="text-muted mb-0">New Customers</dd>
+                                        <dt class="font-size-h2 font-w700">{{ $stats['total_patients'] }}</dt>
+                                        <dd class="text-muted mb-0">Total Patients</dd>
                                     </dl>
                                     <div class="item item-rounded bg-body">
                                         <i class="fa fa-users font-size-h3 text-primary"></i>
                                     </div>
                                 </div>
                                 <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                                    <a class="font-w500 d-flex align-items-center" href="javascript:void(0)">
-                                        View all customers
+                                    <a class="font-w500 d-flex align-items-center" href="{{ route('patients.index') }}">
+                                        View all patients
                                         <i class="fa fa-arrow-alt-circle-right ml-1 opacity-25 font-size-base"></i>
                                     </a>
                                 </div>
                             </div>
-                            <!-- END New Customers -->
+                            <!-- END Total Patients -->
                         </div>
                         <div class="col-sm-6 col-xl-3">
-                            <!-- Messages -->
+                            <!-- Admitted Patients -->
                             <div class="block block-rounded d-flex flex-column">
                                 <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
                                     <dl class="mb-0">
-                                        <dt class="font-size-h2 font-w700">45</dt>
-                                        <dd class="text-muted mb-0">Messages</dd>
+                                        <dt class="font-size-h2 font-w700">{{ $stats['admitted_patients'] }}</dt>
+                                        <dd class="text-muted mb-0">Admitted Patients</dd>
                                     </dl>
                                     <div class="item item-rounded bg-body">
-                                        <i class="fa fa-inbox font-size-h3 text-primary"></i>
+                                        <i class="fa fa-bed font-size-h3 text-success"></i>
                                     </div>
                                 </div>
                                 <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                                    <a class="font-w500 d-flex align-items-center" href="javascript:void(0)">
-                                        View all messages
+                                    <a class="font-w500 d-flex align-items-center" href="{{ route('wards.index') }}">
+                                        View IPD wards
                                         <i class="fa fa-arrow-alt-circle-right ml-1 opacity-25 font-size-base"></i>
                                     </a>
                                 </div>
                             </div>
-                            <!-- END Messages -->
+                            <!-- END Admitted Patients -->
                         </div>
                         <div class="col-sm-6 col-xl-3">
-                            <!-- Conversion Rate -->
+                            <!-- Today's Appointments -->
                             <div class="block block-rounded d-flex flex-column">
                                 <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
                                     <dl class="mb-0">
-                                        <dt class="font-size-h2 font-w700">4.5%</dt>
-                                        <dd class="text-muted mb-0">Conversion Rate</dd>
+                                        <dt class="font-size-h2 font-w700">{{ $stats['todays_appointments'] }}</dt>
+                                        <dd class="text-muted mb-0">Today's Appointments</dd>
                                     </dl>
                                     <div class="item item-rounded bg-body">
-                                        <i class="fa fa-chart-line font-size-h3 text-primary"></i>
+                                        <i class="fa fa-calendar-check font-size-h3 text-info"></i>
                                     </div>
                                 </div>
                                 <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
-                                    <a class="font-w500 d-flex align-items-center" href="javascript:void(0)">
-                                        View statistics
+                                    <a class="font-w500 d-flex align-items-center" href="{{ route('appointments.index') }}">
+                                        View all appointments
                                         <i class="fa fa-arrow-alt-circle-right ml-1 opacity-25 font-size-base"></i>
                                     </a>
                                 </div>
                             </div>
-                            <!-- END Conversion Rate-->
+                            <!-- END Today's Appointments -->
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <!-- Monthly Pharmacy Sales -->
+                            <div class="block block-rounded d-flex flex-column">
+                                <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between align-items-center">
+                                    <dl class="mb-0">
+                                        <dt class="font-size-h2 font-w700">₦{{ number_format($stats['total_revenue'], 2) }}</dt>
+                                        <dd class="text-muted mb-0">Total Hospital Revenue</dd>
+                                    </dl>
+                                    <div class="item item-rounded bg-body">
+                                        <i class="fa fa-pills font-size-h3 text-warning"></i>
+                                    </div>
+                                </div>
+                                <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm">
+                                    <a class="font-w500 d-flex align-items-center" href="{{ route('pharmacy-sales.index') }}">
+                                        View pharmacy sales
+                                        <i class="fa fa-arrow-alt-circle-right ml-1 opacity-25 font-size-base"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END Monthly Pharmacy Sales -->
                         </div>
                     </div>
                     <!-- END Overview -->
@@ -131,143 +131,72 @@
                     <!-- Statistics -->
                     <div class="row">
                         <div class="col-xl-8 d-flex flex-column">
-                            <!-- Earnings Summary -->
+                            <!-- Hospital Statistics -->
                             <div class="block block-rounded flex-grow-1 d-flex flex-column">
                                 <div class="block-header block-header-default">
-                                    <h3 class="block-title">Earnings Summary</h3>
+                                    <h3 class="block-title">Annual Revenue Overview</h3>
                                     <div class="block-options">
                                         <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
                                             <i class="si si-refresh"></i>
-                                        </button>
-                                        <button type="button" class="btn-block-option">
-                                            <i class="si si-settings"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="block-content block-content-full flex-grow-1 d-flex align-items-center">
                                     <!-- Earnings Chart Container -->
-                                    <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _es6/pages/be_pages_dashboard.js -->
-                                    <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
-                                    <canvas class="js-chartjs-earnings"></canvas>
+                                    <canvas id="hospital-revenue-chart" style="height: 300px;"></canvas>
                                 </div>
                                 <div class="block-content bg-body-light">
                                     <div class="row items-push text-center w-100">
                                         <div class="col-sm-4">
                                             <dl class="mb-0">
                                                 <dt class="font-size-h3 font-w700">
-                                                    <i class="fa fa-arrow-up font-size-lg text-success"></i> 2.5%
+                                                    {{ $stats['total_patients'] }}
                                                 </dt>
-                                                <dd class="text-muted mb-0">Customer Growth</dd>
+                                                <dd class="text-muted mb-0">Total Patients</dd>
                                             </dl>
                                         </div>
                                         <div class="col-sm-4">
                                             <dl class="mb-0">
                                                 <dt class="font-size-h3 font-w700">
-                                                    <i class="fa fa-arrow-up font-size-lg text-success"></i> 3.8%
+                                                    {{ $stats['admitted_patients'] }}
                                                 </dt>
-                                                <dd class="text-muted mb-0">Page Views</dd>
+                                                <dd class="text-muted mb-0">Admitted Patients</dd>
                                             </dl>
                                         </div>
                                         <div class="col-sm-4">
                                             <dl class="mb-0">
                                                 <dt class="font-size-h3 font-w700">
-                                                    <i class="fa fa-arrow-up font-size-lg text-success"></i> 1.7%
+                                                    ₦{{ number_format($stats['monthly_sales'], 2) }}
                                                 </dt>
-                                                <dd class="text-muted mb-0">New Products</dd>
+                                                <dd class="text-muted mb-0">Revenue (This Month)</dd>
                                             </dl>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- END Earnings Summary -->
+                            <!-- END Hospital Statistics -->
                         </div>
                         <div class="col-xl-4 d-flex flex-column">
-                            <!-- Last 2 Weeks -->
-                            <!-- Sparkline Charts (.js-sparkline class is initialized in Helpers.sparkline() -->
-                            <!-- For more info and examples you can check out http://omnipotent.net/jquery.sparkline/#s-about -->
+                            <!-- Last 14 Days -->
                             <div class="row row-deck flex-grow-1">
                                 <div class="col-md-6 col-xl-12">
                                     <div class="block block-rounded d-flex flex-column">
                                         <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between">
                                             <dl class="mb-0">
-                                                <dt class="font-size-h2 font-w700">570</dt>
-                                                <dd class="text-muted mb-0">Total Orders</dd>
+                                                <dt class="font-size-h2 font-w700">{{ $stats['todays_appointments'] }}</dt>
+                                                <dd class="text-muted mb-0">Appointments (Today)</dd>
                                             </dl>
                                             <div>
-                                                <div class="d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-danger bg-danger-light">
-                                                    <i class="fa fa-caret-down mr-1"></i>
-                                                    2.2%
+                                                <div class="d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-info bg-info-light">
+                                                    <i class="fa fa-calendar-check mr-1"></i>
+                                                    Last 14 Days
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="block-content p-1 text-center overflow-hidden">
-                                            <!-- Sparkline Line: Orders -->
+                                            <!-- Sparkline Line: Appointments -->
                                             <span class="js-sparkline" data-type="line"
-                                                  data-points="[33,29,32,37,38,30,34,28,43,45,26,45,49,39]"
-                                                  data-width="100%"
-                                                  data-height="70px"
-                                                  data-chart-range-min="20"
-                                                  data-line-color="rgba(210, 108, 122, .4)"
-                                                  data-fill-color="rgba(210, 108, 122, .15)"
-                                                  data-spot-color="transparent"
-                                                  data-min-spot-color="transparent"
-                                                  data-max-spot-color="transparent"
-                                                  data-highlight-spot-color="#D26C7A"
-                                                  data-highlight-line-color="#D26C7A"
-                                                  data-tooltip-suffix="Orders"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-xl-12">
-                                    <div class="block block-rounded d-flex flex-column">
-                                        <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between">
-                                            <dl class="mb-0">
-                                                <dt class="font-size-h2 font-w700">$5,234.21</dt>
-                                                <dd class="text-muted mb-0">Total Earnings</dd>
-                                            </dl>
-                                            <div>
-                                                <div class="d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-success bg-success-light">
-                                                    <i class="fa fa-caret-up mr-1"></i>
-                                                    4.2%
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="block-content p-1 text-center oveflow-hidden">
-                                            <!-- Sparkline Line: Earnings -->
-                                            <span class="js-sparkline" data-type="line"
-                                                  data-points="[716,1185,750,1365,956,890,1200,968,1158,1025,920,1190,720,1352]"
-                                                  data-width="100%"
-                                                  data-height="70px"
-                                                  data-chart-range-min="300"
-                                                  data-line-color="rgba(70,195,123, .4)"
-                                                  data-fill-color="rgba(70,195,123, .15)"
-                                                  data-spot-color="transparent"
-                                                  data-min-spot-color="transparent"
-                                                  data-max-spot-color="transparent"
-                                                  data-highlight-spot-color="#46C37B"
-                                                  data-highlight-line-color="#46C37B"
-                                                  data-tooltip-prefix="$"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="block block-rounded d-flex flex-column">
-                                        <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between">
-                                            <dl class="mb-0">
-                                                <dt class="font-size-h2 font-w700">264</dt>
-                                                <dd class="text-muted mb-0">New Customers</dd>
-                                            </dl>
-                                            <div>
-                                                <div class="d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-success bg-success-light">
-                                                    <i class="fa fa-caret-up mr-1"></i>
-                                                    9.3%
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="block-content p-1 text-center oveflow-hidden">
-                                            <!-- Sparkline Line: New Customers -->
-                                            <span class="js-sparkline" data-type="line"
-                                                  data-points="[25,15,36,14,29,19,36,41,28,26,29,33,23,41]"
+                                                  data-points="{{ $stats['sparkline_appointments'] }}"
                                                   data-width="100%"
                                                   data-height="70px"
                                                   data-chart-range-min="0"
@@ -278,20 +207,84 @@
                                                   data-max-spot-color="transparent"
                                                   data-highlight-spot-color="#46C37B"
                                                   data-highlight-line-color="#46C37B"
-                                                  data-tooltip-prefix="$"></span>
+                                                  data-tooltip-suffix=" Appointments"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-12">
+                                    <div class="block block-rounded d-flex flex-column">
+                                        <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between">
+                                            <dl class="mb-0">
+                                                <dt class="font-size-h2 font-w700">₦{{ number_format($stats['monthly_sales'], 2) }}</dt>
+                                                <dd class="text-muted mb-0">Revenue (Month)</dd>
+                                            </dl>
+                                            <div>
+                                                <div class="d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-success bg-success-light">
+                                                    <i class="fa fa-money-bill-wave mr-1"></i>
+                                                    Last 14 Days
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="block-content p-1 text-center oveflow-hidden">
+                                            <!-- Sparkline Line: Revenue -->
+                                            <span class="js-sparkline" data-type="line"
+                                                  data-points="{{ $stats['sparkline_revenue'] }}"
+                                                  data-width="100%"
+                                                  data-height="70px"
+                                                  data-chart-range-min="0"
+                                                  data-line-color="rgba(70,195,123, .4)"
+                                                  data-fill-color="rgba(70,195,123, .15)"
+                                                  data-spot-color="transparent"
+                                                  data-min-spot-color="transparent"
+                                                  data-max-spot-color="transparent"
+                                                  data-highlight-spot-color="#46C37B"
+                                                  data-highlight-line-color="#46C37B"
+                                                  data-tooltip-prefix="₦"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="block block-rounded d-flex flex-column">
+                                        <div class="block-content block-content-full flex-grow-1 d-flex justify-content-between">
+                                            <dl class="mb-0">
+                                                <dt class="font-size-h2 font-w700">{{ $stats['total_patients'] }}</dt>
+                                                <dd class="text-muted mb-0">Total Patients</dd>
+                                            </dl>
+                                            <div>
+                                                <div class="d-inline-block px-2 py-1 rounded-lg font-size-sm font-w600 text-primary bg-primary-light">
+                                                    <i class="fa fa-users mr-1"></i>
+                                                    Last 14 Days
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="block-content p-1 text-center oveflow-hidden">
+                                            <!-- Sparkline Line: New Patients -->
+                                            <span class="js-sparkline" data-type="line"
+                                                  data-points="{{ $stats['sparkline_patients'] }}"
+                                                  data-width="100%"
+                                                  data-height="70px"
+                                                  data-chart-range-min="0"
+                                                  data-line-color="rgba(70,195,123, .4)"
+                                                  data-fill-color="rgba(70,195,123, .15)"
+                                                  data-spot-color="transparent"
+                                                  data-min-spot-color="transparent"
+                                                  data-max-spot-color="transparent"
+                                                  data-highlight-spot-color="#46C37B"
+                                                  data-highlight-line-color="#46C37B"
+                                                  data-tooltip-suffix=" Patients"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- END Last 2 Weeks -->
+                            <!-- END Last 14 Days -->
                         </div>
                     </div>
                     <!-- END Statistics -->
 
-                    <!-- Recent Orders -->
+                    <!-- Recent Appointments -->
                     <div class="block block-rounded">
                         <div class="block-header block-header-default">
-                            <h3 class="block-title">Recent Orders</h3>
+                            <h3 class="block-title">Recent Appointments</h3>
                             <div class="block-options">
                                 <button type="button" class="btn btn-sm btn-alt-primary" data-toggle="class-toggle" data-target="#one-dashboard-search-orders" data-class="d-none">
                                     <i class="fa fa-search"></i>
@@ -348,232 +341,64 @@
                             <!-- END Search Form -->
                         </div>
                         <div class="block-content">
-                            <!-- Recent Orders Table -->
+                            <!-- Recent Appointments Table -->
                             <div class="table-responsive">
                                 <table class="table table-borderless table-striped table-vcenter">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" style="width: 120px;">Order ID</th>
-                                            <th class="d-none d-sm-table-cell">Created</th>
-                                            <th class="d-none d-xl-table-cell">Customer</th>
-                                            <th>Status</th>
-                                            <th class="d-none d-xl-table-cell text-center">Products</th>
-                                            <th class="d-none d-sm-table-cell text-center">Profit</th>
-                                            <th class="d-none d-sm-table-cell text-right">Value</th>
+                                            <th class="text-center" style="width: 120px;">ID</th>
+                                            <th class="d-none d-sm-table-cell">Date</th>
+                                            <th class="d-none d-xl-table-cell">Patient</th>
+                                            <th>Doctor</th>
+                                            <th class="d-none d-xl-table-cell">Status</th>
+                                            <th class="d-none d-sm-table-cell">Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse($stats['recent_appointments'] as $appointment)
                                         <tr>
                                             <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00965</strong>
+                                                <a class="font-w600" href="{{ route('appointments.show', $appointment->id) }}">
+                                                    <strong>#{{ $appointment->id }}</strong>
                                                 </a>
                                             </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">27 min ago</td>
+                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">
+                                                {{ $appointment->appointment_date->format('M d, Y') }}
+                                            </td>
                                             <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Albert Ray</a>
+                                                <a class="font-w600" href="{{ route('patients.show', optional($appointment->patient)->id ?? '#') }}">
+                                                    {{ optional($appointment->patient)->name ?? 'N/A' }}
+                                                </a>
                                             </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-danger-light text-danger">Canceled</span>
+                                            <td class="font-size-sm">
+                                                {{ optional($appointment->doctor)->name ?? 'N/A' }}
                                             </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">7</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">3%</span>
+                                            <td class="d-none d-xl-table-cell">
+                                                @if($appointment->status == 'scheduled')
+                                                    <span class="font-size-sm font-w600 px-2 py-1 rounded bg-info-light text-info">Scheduled</span>
+                                                @elseif($appointment->status == 'completed')
+                                                    <span class="font-size-sm font-w600 px-2 py-1 rounded bg-success-light text-success">Completed</span>
+                                                @elseif($appointment->status == 'cancelled')
+                                                    <span class="font-size-sm font-w600 px-2 py-1 rounded bg-danger-light text-danger">Cancelled</span>
+                                                @else
+                                                    <span class="font-size-sm font-w600 px-2 py-1 rounded bg-warning-light text-warning">{{ ucfirst($appointment->status) }}</span>
+                                                @endif
                                             </td>
                                             <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$26,52</strong>
+                                                <strong>{{ optional($appointment->appointment_date)->format('h:i A') ?? 'N/A' }}</strong>
                                             </td>
                                         </tr>
+                                        @empty
                                         <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00964</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">8 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Helen Jacobs</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-success-light text-success">Delivered</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">4</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">17%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$1190,65</strong>
+                                            <td colspan="6" class="text-center text-muted py-4">
+                                                No recent appointments found
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00963</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">6 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Carl Wells</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-warning-light text-warning">Processing</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">3</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">25%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$717,24</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00962</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">19 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Betty Kelley</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-success-light text-success">Delivered</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">1</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">12%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$868,63</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00961</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">11 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Amanda Powell</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-warning-light text-warning">Processing</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">5</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">14%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$242,66</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00960</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">2 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Amber Harvey</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-success-light text-success">Delivered</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">7</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">7%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$1322,63</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00959</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">3 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Barbara Scott</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-danger-light text-danger">Canceled</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">4</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">23%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$96,40</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00958</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">13 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Lori Grant</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-success-light text-success">Delivered</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">3</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">14%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$1006,30</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">
-                                                    <strong>ORD.00957</strong>
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell font-size-sm font-w600 text-muted">9 min ago</td>
-                                            <td class="d-none d-xl-table-cell font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">Amanda Powell</a>
-                                            </td>
-                                            <td>
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded  bg-danger-light text-danger">Canceled</span>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-center font-size-sm">
-                                                <a class="font-w600" href="javascript:void(0)">4</a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-center">
-                                                <span class="font-size-sm font-w600 px-2 py-1 rounded bg-body-dark">17%</span>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell text-right font-size-sm">
-                                                <strong>$100,20</strong>
-                                            </td>
-                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- END Recent Orders Table -->
+                            <!-- END Recent Appointments Table -->
 
                             <!-- Pagination -->
                             <nav aria-label="Photos Search Navigation">
@@ -609,3 +434,125 @@
                 </div>
                 <!-- END Page Content -->
 @endsection
+
+@push('scripts')
+<script>
+    jQuery(function(){
+        // Init Chart.js for Hospital Revenue Overview
+        var ctx = document.getElementById('hospital-revenue-chart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Total Revenue',
+                            fill: true,
+                            backgroundColor: 'rgba(70, 195, 123, 0.10)',
+                            borderColor: 'rgba(70, 195, 123, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(70, 195, 123, 1)',
+                            pointBorderColor: '#fff',
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(70, 195, 123, 1)',
+                            data: {!! $stats['chart_earnings'] !!}
+                        },
+                        {
+                            label: 'Pharmacy Sales',
+                            fill: false,
+                            backgroundColor: 'rgba(52, 144, 220, 0.10)',
+                            borderColor: 'rgba(52, 144, 220, 1)',
+                            borderWidth: 2,
+                            borderDash: [],
+                            pointBackgroundColor: 'rgba(52, 144, 220, 1)',
+                            pointBorderColor: '#fff',
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            data: {!! $stats['chart_pharmacy'] !!}
+                        },
+                        {
+                            label: 'Billing Revenue',
+                            fill: false,
+                            backgroundColor: 'rgba(149, 97, 226, 0.10)',
+                            borderColor: 'rgba(149, 97, 226, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(149, 97, 226, 1)',
+                            pointBorderColor: '#fff',
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            data: {!! $stats['chart_billing'] !!}
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 16,
+                            fontColor: '#6c757d',
+                            fontSize: 12
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                color: 'rgba(0,0,0,0.04)'
+                            },
+                            ticks: {
+                                fontColor: '#6c757d',
+                                fontSize: 11
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                color: 'rgba(0,0,0,0.04)'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                fontColor: '#6c757d',
+                                fontSize: 11,
+                                callback: function(value) {
+                                    if (value >= 1000000) {
+                                        return '₦' + (value / 1000000).toFixed(1) + 'M';
+                                    } else if (value >= 1000) {
+                                        return '₦' + (value / 1000).toFixed(0) + 'k';
+                                    }
+                                    return '₦' + value;
+                                }
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(255,255,255,0.95)',
+                        titleFontColor: '#333',
+                        bodyFontColor: '#555',
+                        borderColor: '#e0e0e0',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                                var val = tooltipItem.yLabel;
+                                var formatted = '₦' + parseFloat(val).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                return ' ' + label + ': ' + formatted;
+                            }
+                        }
+                    },
+                    elements: {
+                        line: {
+                            tension: 0.35
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+@endpush

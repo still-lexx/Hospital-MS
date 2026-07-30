@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Models\User;
+use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePatientRequest;
@@ -54,7 +55,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('patients.create');
+        $wards = Ward::all();
+        return view('patients.create', compact('wards'));
     }
 
     /**
@@ -108,7 +110,8 @@ class PatientController extends Controller
     public function edit(string $id)
     {
         $patient = Patient::findOrFail($id);
-        return view('patients.edit', compact('patient'));
+        $wards = Ward::all();
+        return view('patients.edit', compact('patient', 'wards'));
     }
 
     /**
@@ -141,7 +144,7 @@ class PatientController extends Controller
             'emergency_contact' => $request->emergency_contact,
             'allergies' => $request->allergies,
             'conditions' => $request->conditions,
-            'ward' => $request->ward,
+            'ward_id' => $request->ward_id,
             'admitted' => $request->admitted,
             'photo' => $photoPath,
         ]);
@@ -151,17 +154,20 @@ class PatientController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * Note: Route is already protected by admin middleware.
      */
     public function destroy(string $id)
     {
-        // Check if user has admin role before allowing deletion
-        if (Auth()->User()->hasRole('admin')) {
-            Patient::where('id', $id)->delete();
-            return redirect()->route('patients.index')->with('success', 'Patient deleted successfully.');
+        $patient = Patient::findOrFail($id);
+
+        // Delete photo from storage if it exists
+        if ($patient->photo && \Storage::disk('public')->exists($patient->photo)) {
+            \Storage::disk('public')->delete($patient->photo);
         }
-        
-        // Unauthorized access
-        return redirect()->route('patients.index')->with('error', 'Unauthorized action. Admin access required.');
+
+        $patient->delete();
+
+        return redirect()->route('patients.index')->with('success', 'Patient deleted successfully.');
     }
 
  

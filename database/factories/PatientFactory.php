@@ -29,8 +29,7 @@ class PatientFactory extends Factory
             'emergency_contact' => fake()->phoneNumber(),
             'allergies' => fake()->optional()->sentence(),
             'conditions' => fake()->optional()->sentence(),
-            'ward' => fake()->optional()->word(),
-            'admitted' => fake()->boolean(30), // 30% chance of being admitted
+            'ward_id' => \App\Models\Ward::factory(),
             'photo' => null,
         ];
     }
